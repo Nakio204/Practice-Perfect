@@ -31,7 +31,7 @@ string Hangxe::getMa() {
 
 
 int main() {
-    cout << "Hi";
+    cout << "Oke chwa";
 
     return 0;
 }
