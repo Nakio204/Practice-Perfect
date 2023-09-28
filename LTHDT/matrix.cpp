@@ -10,6 +10,7 @@ class Matrix {
         Matrix Cong(const Matrix &);
         int check_Cong(const Matrix &);
         friend Matrix Nhan(const Matrix &, int);
+        friend Matrix Nhan2(const Matrix &, const Matrix &);
     private:
         int m;
         int n;
@@ -54,7 +55,6 @@ void Matrix::Xuat() {
 Matrix Matrix::Cong(const Matrix &x) {
     if(!(this->m == x.m && this->n == x.n)) {
         cout << "Khong the cong hai ma tran khac cap!" << endl;
-        return *this;
     }
     else {
         Matrix res;
@@ -70,7 +70,11 @@ Matrix Matrix::Cong(const Matrix &x) {
 }
 
 int Matrix::check_Cong(const Matrix &x) {
-    return (!(this->m == x.m && this->n == x.n));
+    if(!(this->m == x.m && this->n == x.n)) {
+        return 0;
+    }
+
+    return 1;
 }
 
 Matrix Nhan(const Matrix &x, int k) {
@@ -86,6 +90,19 @@ Matrix Nhan(const Matrix &x, int k) {
     return res;
 }
 
+Matrix Nhan2(const Matrix &x, const Matrix &y) {
+    Matrix res;
+    res.m = x.m;
+    res.n = x.n;
+
+    for(int i = 0; i < res.m; i++) {
+        for(int j = 0; j < res.n; j++) {
+            res.elem[i][j] = x.elem[i][j] * y.elem[i][j];
+        }
+    }
+    return res;
+}
+
 int main() {
     while(1) {
         int lc;
@@ -93,6 +110,7 @@ int main() {
         cout << "1. Cong hai ma tran" << endl;
         cout << "2. Check tong 2 ma tran" << endl;
         cout << "3. Nhan ma tran voi mot so K" << endl;
+        cout << "4. Nhan hai ma tran" << endl;
         cout << "0. Thoat menu" << endl;
         cout << "--------------------------------" << endl;
         cout << "Nhap lua chon: "; cin >> lc;
@@ -121,8 +139,8 @@ int main() {
             b.Nhap(); 
 
             int res = a.check_Cong(b);
-            if(res) cout << "\nHai ma tran co the cong!" << endl;
-            else cout << "\nKhong the cong hai ma tran khac cap!" << endl;
+            if(res) cout << endl << "Hai ma tran co the cong!" << endl;
+            else cout << endl << "Khong the cong hai ma tran khac cap!" << endl;
         }
         else if(lc == 3) {
             Matrix a, c;
@@ -135,6 +153,22 @@ int main() {
             cout << "Nhap k: "; cin >> k;
             c = Nhan(a, k);
             cout << "Tich ma tran A * k la: " << endl;
+            c.Xuat();
+        }
+        else if(lc == 4) {
+            Matrix a, b, c;
+            cout << "Nhap ma tran A:" << endl;
+            a.Nhap();
+            cout << "Nhap ma tran B:" << endl;
+            b.Nhap();  
+            
+            cout << "Ma tran A:" << endl;
+            a.Xuat();
+            cout << "Ma tran B:" << endl;
+            b.Xuat();
+
+            c = Nhan2(a, b);
+            cout << "Tich hai ma tran la: " << endl;
             c.Xuat();
         }
         else {
