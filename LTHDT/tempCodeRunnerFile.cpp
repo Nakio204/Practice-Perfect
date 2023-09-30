@@ -1,13 +1,11 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
-
 using namespace std;
 
 class Hangxe {
     private:
-        string ma, ten, nuoc;
-        int nam;
+        string ma, ten, nuoc, nam;
     public:
         string getMa(), getTen();
         void input();
@@ -22,26 +20,25 @@ string Hangxe::getTen() {
 }
 
 void Hangxe::input() {
-    cin.ignore();
     getline(cin, ma);
     getline(cin, ten);
     getline(cin, nuoc);
-    cin >> nam;
-    cin.ignore();
+    getline(cin, nam);
 }
 
 class Oto {
     private:
         long long giaNiemyet;
-        string ma, ten, mauf;
-        int nam, indx;
+        string ma, ten, nam, mauf;
+        int index;
     public:
+        Oto() : ma(""), ten(""), nam(""), mauf(""), giaNiemyet(0) {}
         string getMa(), getTen();
+        long long getGia();
         void Nhap(vector<Hangxe> &hangXe);
         void Xuat(Hangxe &hxe);
         long long giaLanbanh();
         long long phiDangki();
-        int getIndx();
 };
 
 string Oto::getMa() {
@@ -52,19 +49,14 @@ string Oto::getTen() {
     return this->ten;
 }
 
-int Oto::getIndx() {
-    return this->indx;
-}
-
-
 void Oto::Nhap(vector<Hangxe> &hangXe) {
     getline(cin, this->ma);
     getline(cin, this->ten);
-    cin >> this->nam;
-    cin >> this->indx;
+    getline(cin, this->nam);
+    cin >> index;
     cin >> this->giaNiemyet;
     cin.ignore();
-    getline(cin, this->mauf);   
+    getline(cin, this->mauf);
 }
 
 void Oto::Xuat(Hangxe &hxe) {
@@ -72,7 +64,7 @@ void Oto::Xuat(Hangxe &hxe) {
 }
 
 long long Oto::phiDangki() {
-    return 2160000 + 480000 + 340000 + 500000 + (giaNiemyet * 0.072);
+    return 2160000 + 480000 + 340000 + 500000 + (giaNiemyet * .072);
 }
 
 long long Oto::giaLanbanh() {
@@ -84,34 +76,25 @@ bool cmp(Oto a, Oto b) {
 }
 
 int main() {
-    int hangxe, oto;
-    cin >> hangxe;
+    int q, p;
+    cin >> q;
     cin.ignore();
-    vector<Hangxe> hangXe(hangxe);
-    for(int i = 0; i < hangxe; i++) {
+    vector<Hangxe> hangXe(q);
+    for(int i = 0; i < q; i++) {
         hangXe[i].input();
     }
-    cin >> oto;
+    cin >> p;
     cin.ignore();
-    vector<Oto> Car(oto);
-    for(int i = 0; i < oto ; i++) {
+    vector<Oto> Car(p);
+    for(int i = 0; i < p; i++) {
         Car[i].Nhap(hangXe);
     }
 
-    string maHangXe;
-    cin.ignore();
-    getline(cin, maHangXe);
-
-    for (int i = 0; i < oto; i++) {
-        if (hangXe[Car[i].getIndx()].getMa() == maHangXe) {
-            Car[i].Xuat(hangXe[Car[i].getIndx()]);
-        }
-    }
     cout << "===" << endl;
     sort(Car.begin(), Car.end(), cmp);
-    for (int i = 0; i < oto; i++) {
-        Car[i].Xuat(hangXe[Car[i].getIndx()]);
+    for(int i = 0; i < p; i++) {
+        Car[i].Xuat(hangXe[i]);
     }
-
+ 
     return 0;
 }
