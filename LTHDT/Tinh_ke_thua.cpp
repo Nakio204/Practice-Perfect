@@ -4,67 +4,49 @@ using namespace std;
 // base class: class cha
 // derived class: class con
 
-class Person {
-    private:
-        string name;
-        string addr;
+class A {
     public:
-        Person(string name, string addre) {
-            this->name = name;
-            this->addr = addre;
+        A() {
+            cout << "Constructor cua lop A\n";
         }
-        void nhap() {
-            getline(cin, name);
-            getline(cin, addr);
+        ~A() {
+            cout << "Destructor cua lop A\n";
         }
-        string getName() {
-            return this->name;
-        }
-        string getAddr() {
-            return this->addr;
-        }
-        void setName(string name) {
-            this->name = name;
-        }
-        void setAddr(string addr) {
-            this->addr = addr;
-        }
-        void in() {
-            cout << name << " " << addr << " ";
+        void xinchao() {
+            cout << "Xin chao A\n";
         }
 };
 
-class Student : public Person {
-    private:
-        float gpa;
+class B {
     public:
-        Student(string name, string addre, float gpa) {
-            this->name = name;
-            this->adrr = addre;
-            this->gpa = gpa;
+        B() {
+            cout << "Constructor cua lop B\n"; // Goi ham tao cua lop cha truoc
         }
-        void nhap() {
-            Person::nhap();
-            cin >> gpa;
+        ~B() {
+            cout << "Destructor cua lop B\n"; // Goi ham huy cua lop con truoc
         }
-        float getGpa() {
-            return this->gpa;
-        }
-        void setGpa(float gpa) {
-            this->gpa = gpa;
-        }
-        void in() {
-            Person::in();
-            cout << fixed << setprecision(2) << gpa << endl;
-        }
+        void xinchao() {
+            cout << "Xin chao B\n";
+        }        
 };
 
+class C: public A, public B {
+    public:
+        C() {
+            cout << "Constructor cua lop C\n";
+        }
+        ~C() {
+            cout << "Destructor cua lop C\n";
+        }
+        // void xinchao() {
+        //     cout << "Xin chao C\n";
+        // }
+};
 
 
 int main() {
-    Student s;
-    s.nhap();
-    s.in();
+    C object;
+    object.xinchao();
 
     return 0;
 }
