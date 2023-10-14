@@ -314,6 +314,7 @@ int main(){
             k++;
         }
     }
+    
     for(int i = 0; i < j; i++) {
 		Car[i].XuatOto();
 		res += Car[i].giaOto();
